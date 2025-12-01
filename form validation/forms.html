@@ -19,6 +19,10 @@
       .validation-error{
         color: red;
       }
+      .counter {
+        margin: 0;
+        padding: 0;
+      }
     </style>
   </head>
   <body>
@@ -50,7 +54,95 @@
           cols="15"
           rows="3"
           class="required"
+          max = 10
+          onkeyup="getCharCounter(event, this)"
         ></textarea>
+        <p class="counter"></p><br>
+        <div class="validation-error"></div>
+        <br />
+
+        <label for="mobile">Phone no.</label><br />
+        <input type="number" id="mob" name="phone" class="required" />
+        <div class="validation-error"></div>
+
+        <br />
+
+        <!-- radiobuttons -->
+        <label for="gender">Gender</label><br />
+        <input type="radio" name="gender" value="male" class="required" />
+        <label for="male">Male</label><br />
+        <input type="radio" name="gender" value="female" class="required" />
+        <label for="female">Female</label><br />
+        <div class="validation-error"></div><br>
+
+      
+
+        <!-- selective fields -->
+        <label for="education">Education</label>
+        <select name="education" id="education" class="required">
+          <option value="" disabled selected>
+            Select your education level
+          </option>
+          <option value="be">BE</option>
+          <option value="bsc">BSc</option>
+          <option value="bcom">BCom</option>
+          <option value="arts">Arts</option></select>
+        
+        <div class="validation-error"></div>
+        <br />
+
+        
+        <input type="checkbox" name="terms" id="terms" class="required" />
+        <label for="terms">I agree to the terms</label>
+        <div class="validation-error"></div>
+
+        <br /><br />
+
+        <div style="text-align: center">
+          <input
+            type="submit"
+            name="submit"
+            value="Submit"
+            style="margin-bottom: 20px"
+          />
+        </div>
+      </form>
+
+
+
+
+
+      <form name="myForm" onsubmit="submitHandler(event)">
+        <label for="name">Name</label><br />
+        <input type="text" id="name" class="required" name="name" />
+        <div class="validation-error"></div>
+
+        <br />
+
+        <label for="dob">Date of Birth</label><br />
+        <input type="date" name="dob" id="dob" class="required" />
+        <div class="validation-error"></div>
+
+        <br />
+
+        <label for="email">Email</label><br />
+        <input type="email" name="email" id="email" class="required" />
+        <div class="validation-error"></div>
+
+
+        <br />
+
+        <label for="address">Address</label><br />
+        <textarea
+          name="address"
+          id="address"
+          cols="15"
+          rows="3"
+          class="required"  
+          onkeyup="getCharCounter(event, this)"
+        ></textarea>
+        <!-- <span id="counter"></span><br> -->
+        <p class="counter"></p>
         <div class="validation-error"></div>
         <br />
 
@@ -68,8 +160,9 @@
         <label for="male">Male</label><br />
         <input type="radio" name="gender" value="female" class="required" />
         <label for="female">Female</label><br />
+        <div class="validation-error"></div><br>
 
-        <br />
+      
 
         <!-- selective fields -->
         <label for="education">Education</label>
@@ -81,11 +174,13 @@
           <option value="bsc">BSc</option>
           <option value="bcom">BCom</option>
           <option value="arts">Arts</option></select
-        ><br />
+        >
+        <div class="validation-error"></div>
+        <br />
 
         
-        <label for="terms">I agree to the terms</label>
-        <input type="checkbox" name="terms" id="terms" class="required" />
+        <input type="checkbox" name="terms1" id="terms1" class="required" />
+        <label for="terms1">I agree to the terms</label>
         <div class="validation-error"></div>
 
         <br /><br />
@@ -101,6 +196,9 @@
       </form>
     </div>
 
+
+   
     <script src="form-validation.js"></script>
   </body>
 </html>
+<!-- onkeyup="(this)=>{document.nextSiblingElement.textContent = `char count is ${this.value.length}`}" -->
