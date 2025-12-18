@@ -1,10 +1,9 @@
 <?php  
-    // session_start();
-    // if(!isset($_SESSION["admin"])){
-    //     header("Location: login.php");
-    //     exit();
-    // }
-
+    session_start();
+    if(!isset($_SESSION["admin"])){
+        header("Location: login.php");
+        exit();
+    }
 ?>
 
 <?php 
@@ -66,6 +65,19 @@
                     </div>
                 </div>
         <?php }?>
+
+        <?php if(isset($_SESSION["error"])){ ?>
+                <div class="toast align-items-center text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                        <?php echo $_SESSION["error"]; 
+                            unset($_SESSION["error"]);
+                        ?>
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                </div>
+        <?php }?>
         
 
         <!-- admin tables -->
@@ -119,75 +131,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- delete modal -->
-            <div class="modal modal-lg fade" id="deleteUser" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5">Delete User</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p>Do you want to delete the user?</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cencel</button>
-                            <button type="button" class="btn btn-danger">Delete</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- update modal -->
-            <div class="modal modal-lg fade" id="updateUser" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Add User</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="./update_user.php" method="post" class="row g-3">
-                            <div class="col-md-6">
-                                <label for="first_name" class="form-label">First name</label>
-                                <input type="text" name="first_name" class="form-control" id="">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="last_name" class="form-label">Last name</label>
-                                <input type="text" name="last_name" class="form-control" id="">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="phone_no" class="form-label">Phone no</label>
-                                <input type="text" name="phone_no" class="form-control" id="">
-                            </div>
-                            <div class="col-md-5">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="text" name="email" class="form-control" id="">
-                            </div>
-                            <div class="col-md-5">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" name="password" class="form-control" id="">
-                            </div>
-                            <div class="col-md-2">
-                                <label for="role" class="form-label">Select role</label>
-                                <select class="form-select form-select mb-3" name="role">
-                                    <option value="user">user</option>
-                                    <option value="staff">staff</option>
-                                    <option value="accounts">accounts</option>
-                                    <option value="manager">manager</option>
-                                </select>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Add</button>
-                            </div>
-                        </form>
-                    </div>
-                    </div>
-                </div>
-            </div>
-
 
             <table class="table table-striped mb-3">
                 <thead>

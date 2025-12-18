@@ -12,7 +12,7 @@
     $plain_password = $_POST["password"];
     $role = $_POST["role"];
 
-    $sql = "SELECT email, password_hash FROM admin WHERE email = :email AND role_id = :role";
+    $sql = "SELECT email, password_hash, admin_id FROM admin WHERE email = :email AND role_id = :role";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(":email", $email);
     $stmt->bindParam(":role", $role);
@@ -22,9 +22,10 @@
     if($result) {
         foreach($result as $r) {
             $verify_password = password_verify($plain_password, $r["password_hash"]);
+            $admin_id = $r["admin_id"];
         }
         if($verify_password){
-            $_SESSION["admin"] = $res;
+            $_SESSION["admin"] = $admin_id;
             header("Location: dashboard.php");
             exit();
         } else {
