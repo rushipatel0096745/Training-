@@ -10,7 +10,7 @@
 
     // $cart_products = json_decode($cart_products, true);
 
-    echo var_dump($cart_products);
+    // echo var_dump($cart_products);
 
 
     if(!isset($_SESSION["login_user_id"])){
@@ -49,7 +49,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
-  <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet" /> -->
   <meta name="theme-color" content="#712cf9" />
   <link href="checkout.css" rel="stylesheet" />
   <style>
@@ -171,77 +171,77 @@
         </div>
         <div class="col-md-7 col-lg-8">
           <h4 class="mb-3">Billing address</h4>
-          <form class="needs-validation" novalidate>
+          <form class="needs-validation" id="checkout_form" onsubmit="sendData(event)" novalidate>
             <div class="row g-3">
               <?php foreach($user as $u) {?>
               <div class="col-sm-6">
                 <label for="firstName" class="form-label">First name</label>
-                <input type="text" class="form-control" id="firstName" placeholder="" value="<?php echo $u["first_name"] ?>" required />
+                <input type="text" class="form-control" id="firstName" name="firstname" placeholder="" value="<?php echo $u["first_name"] ?>" required />
                 <div class="invalid-feedback">
                   Valid first name is required.
                 </div>
               </div>
               <div class="col-sm-6">
                 <label for="lastName" class="form-label">Last name</label>
-                <input type="text" class="form-control" id="lastName" placeholder="" value="<?php echo $u["last_name"] ?>" required />
+                <input type="text" class="form-control" id="lastName" name="lastname" placeholder="" value="<?php echo $u["last_name"] ?>" required />
                 <div class="invalid-feedback">
                   Valid last name is required.
                 </div>
               </div>
               <div class="col-12">
                 <label for="phone_no" class="form-label">Phone no</label>
-                <input type="text" class="form-control" id="phone_no" placeholder="phone no" value="<?php echo $u["phone_no"] ?>" />
+                <input type="text" class="form-control" id="phone_no" name="phone" placeholder="phone no" value="<?php echo $u["phone_no"] ?>" />
                 <div class="invalid-feedback">
                 </div>
               </div>
               <div class="col-12">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="you@example.com" value="<?php echo $u["email"] ?>"/>
+                <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" value="<?php echo $u["email"] ?>"/>
                 <div class="invalid-feedback">
                   Please enter a valid email address for shipping updates.
                 </div>
                 <?php } ?>
               </div>
-              <!-- <div class="col-12">
+              <div class="col-12">
                 <label for="address" class="form-label">Address</label>
-                <input type="text" class="form-control" id="address" placeholder="1234 Main St" required />
+                <input type="text" class="form-control" id="address1" name="address1" placeholder="1234 Main St" required />
                 <div class="invalid-feedback">
                   Please enter your shipping address.
                 </div>
               </div>
-              <div class="col-12">
-                <label for="address2" class="form-label">Address 2
-                  <span class="text-body-secondary">(Optional)</span></label>
-                <input type="text" class="form-control" id="address2" placeholder="Apartment or suite" />
-              </div>
-              <div class="col-md-5">
+              <div class="col-md-3">
                 <label for="country" class="form-label">Country</label>
-                <select class="form-select" id="country" required>
+                <select class="form-select" id="country" name="country" required>
                   <option value="">Choose...</option>
-                  <option>United States</option>
+                  <option value="India">India</option>
                 </select>
                 <div class="invalid-feedback">
                   Please select a valid country.
                 </div>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <label for="state" class="form-label">State</label>
-                <select class="form-select" id="state" required>
+                <select class="form-select" id="state" name="state" required>
                   <option value="">Choose...</option>
-                  <option>California</option>
+                  <option value="Gujarat">Gujarat</option>
                 </select>
                 <div class="invalid-feedback">
                   Please provide a valid state.
                 </div>
               </div>
               <div class="col-md-3">
+                <label for="city" class="form-label">City</label>
+                <input type="text" class="form-control" id="city" name="city" placeholder="" required />
+                <div class="invalid-feedback">City required</div>
+              </div>
+              <div class="col-md-3">
                 <label for="zip" class="form-label">Zip</label>
-                <input type="text" class="form-control" id="zip" placeholder="" required />
+                <input type="text" class="form-control" id="zip" name="zipcode" placeholder="" required />
                 <div class="invalid-feedback">Zip code required.</div>
               </div>
             </div>
-            <hr class="my-4" />
-            <div class="form-check">
+            <!-- <hr class="my-4" /> -->
+            <!-- <div class="form-check">
               <input type="checkbox" class="form-check-input" id="same-address" />
               <label class="form-check-label" for="same-address">Shipping address is the same as my billing
                 address</label>
@@ -255,13 +255,15 @@
             <div class="my-3">
               <div class="form-check">
                 <input id="online" name="paymentMethod" type="radio" class="form-check-input" checked value="online" required />
-                <label class="form-check-label" for="debit">Online</label>
+                <label class="form-check-label" for="online">Online</label>
               </div>
               <div class="form-check">
                 <input id="cod" name="paymentMethod" type="radio" class="form-check-input" value="cod" required />
-                <label class="form-check-label" for="credit">Cash on delivery</label>
+                <label class="form-check-label" for="cod">Cash on delivery</label>
               </div>
             </div>
+
+
             <!-- <div class="row gy-3">
               <div class="col-md-6">
                 <label for="cc-name" class="form-label">Name on card</label>
@@ -287,6 +289,8 @@
                 <div class="invalid-feedback">Security code required</div>
               </div>
             </div> -->
+
+
             <hr class="my-4" />
             <button class="w-100 btn btn-primary btn-lg" type="submit">
               Continue to checkout
@@ -313,6 +317,7 @@
 
       let cart_total = 0.0;
       let products = [];
+      let product_names = [];
 
       function getData(event){
         event.preventDefault();
@@ -327,13 +332,14 @@
           let data = `
           <h4 class="d-flex justify-content-between align-items-center mb-3">
             <span class="text-primary">Your cart</span>
-            <span class="badge bg-primary rounded-pill">${res.cart_total}</span>
+            <span class="badge bg-primary rounded-pill">${products.length}</span>
           </h4>
+          <ul class="list-group mb-3">
           `; 
 
-          products.foreach((product) => {
+          products.forEach((product) => {
+            product_names.push(product.product_name);
             data += `
-            <ul class="list-group mb-3">
             <li class="list-group-item d-flex justify-content-between lh-sm">
               <div>
                 <h6 class="my-0">${product.product_name}</h6>
@@ -341,16 +347,39 @@
               </div>
               <span class="text-body-secondary">${product.price}</span>
             </li>
-            <li class="list-group-item d-flex justify-content-between">
-              <span>Total (INR)</span> <strong>$20</strong>
-            </li>
-          </ul>
             `;
           })
+
+          data += `
+          <li class="list-group-item d-flex justify-content-between">
+              <span>Total (INR)</span> <strong>${res.cart_total}</strong>
+            </li>
+          </ul>
+          `;
 
           document.getElementById("product_data").innerHTML = data;
         })
       }
+
+
+      function sendData(event) {
+          // const form = document.getElementById("checkout_form");
+          event.preventDefault();
+          const form = event.target;
+          console.log(form);
+
+          const formData = new FormData(form);
+          formData.append("amount", cart_total);
+          formData.append("productinfo", product_names.toString())
+
+          const req = new XMLHttpRequest();
+          req.open("POST", "./process_checkout.php");
+          // req.open("POST", "./test.php");
+          req.send(formData);
+
+      }
+
+
 
     </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
