@@ -15,6 +15,15 @@
     // $image = "https://picsum.photos/id/237/50/";
     // $description = "description for product 1";
 
+SELECT P.p_id AS p_id, P.product_name AS product_name, P.price AS price, P.compare_price AS compare_price, P.image AS image, P.description AS description, GROUP_CONCAT(C.category_name) AS 'categories'
+FROM product P 
+LEFT JOIN product_category PC ON P.p_id = PC.p_id 
+LEFT JOIN category C ON C.c_id = PC.c_id
+GROUP BY P.p_id
+HAVING P.p_id IN (
+SELECT DISTINCT Pr.p_id FROM product Pr JOIN product_category C ON Pr.p_id = C.p_id WHERE C.c_id IN (1, 4)
+)
+
     // fetch all categories
     $cat_sql = "SELECT * FROM category order by c_id";
     $cat_stmt = $conn->prepare($cat_sql);
